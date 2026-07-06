@@ -20,6 +20,7 @@ export function Hero() {
         gsap.to(parallaxRef.current, {
           y: '25%',
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top top',
@@ -46,7 +47,7 @@ export function Hero() {
 
   return (
     <section ref={sectionRef} className="relative flex min-h-screen items-center overflow-hidden">
-      <div ref={parallaxRef} className="absolute inset-0 md:-top-1/2 md:-bottom-1/2">
+      <div ref={parallaxRef} className="absolute inset-0 md:-top-1/2 md:-bottom-1/2 will-change-transform">
         <img
           src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop"
           alt="Luxury home"
@@ -99,7 +100,7 @@ export function Hero() {
             </div>
             <div className="flex-1">
               <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-gray-300">Price Range</label>
-              <select className="w-full appearance-none rounded-xl border border-white/20 bg-white/10 py-3 pl-4 pr-4 text-sm text-white outline-none backdrop-blur-sm focus:border-brass">
+              <select className="w-full appearance-none rounded-xl border border-white/20 bg-white/10 py-3 pl-4 pr-4 text-sm text-white outline-none sm:backdrop-blur-sm focus:border-brass">
                 <option value="" className="text-charcoal">Any Price</option>
                 <option value="0-500000" className="text-charcoal">$0 - $500,000</option>
                 <option value="500000-1000000" className="text-charcoal">$500k - $1M</option>
@@ -108,7 +109,7 @@ export function Hero() {
               </select>
             </div>
             <div className="w-full md:w-auto">
-              <select className="w-full appearance-none rounded-xl border border-white/20 bg-white/10 py-3 pl-4 pr-4 text-sm text-white outline-none backdrop-blur-sm focus:border-brass">
+              <select className="w-full appearance-none rounded-xl border border-white/20 bg-white/10 py-3 pl-4 pr-4 text-sm text-white outline-none sm:backdrop-blur-sm focus:border-brass">
                 <option value="" className="text-charcoal">Beds</option>
                 <option className="text-charcoal">1+</option>
                 <option className="text-charcoal">2+</option>
