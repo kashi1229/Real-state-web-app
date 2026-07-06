@@ -64,25 +64,36 @@ export function PropertyCard({ listing, index = 0 }: PropertyCardProps) {
         </div>
 
         {(listing.beds > 0 || listing.baths > 0 || listing.sqft > 0) && (
-          <div className="mt-4 flex items-center gap-4 border-t border-gray-100 pt-4 text-sm text-gray-600">
-            {listing.beds > 0 && (
-              <span className="flex items-center gap-1.5">
-                <Bed className="h-4 w-4 text-forest-600" />
-                {listing.beds} {listing.beds === 1 ? 'Bed' : 'Beds'}
-              </span>
-            )}
-            {listing.baths > 0 && (
-              <span className="flex items-center gap-1.5">
-                <Bath className="h-4 w-4 text-forest-600" />
-                {listing.baths} {listing.baths === 1 ? 'Bath' : 'Baths'}
-              </span>
-            )}
-            {listing.sqft > 0 && (
-              <span className="flex items-center gap-1.5">
-                <Square className="h-4 w-4 text-forest-600" />
-                {listing.sqft.toLocaleString()} sqft
-              </span>
-            )}
+          <div className="mt-4 border-t border-gray-100 pt-4">
+            <div className="flex divide-x divide-gray-100">
+              {listing.beds > 0 && (
+                <div className="flex flex-1 flex-col items-center gap-0.5 px-1">
+                  <span className="flex items-center gap-1 text-sm font-semibold text-gray-900">
+                    <Bed className="h-3.5 w-3.5 shrink-0 text-forest-600" />
+                    {listing.beds}
+                  </span>
+                  <span className="text-[11px] text-gray-400">Beds</span>
+                </div>
+              )}
+              {listing.baths > 0 && (
+                <div className="flex flex-1 flex-col items-center gap-0.5 px-1">
+                  <span className="flex items-center gap-1 text-sm font-semibold text-gray-900">
+                    <Bath className="h-3.5 w-3.5 shrink-0 text-forest-600" />
+                    {listing.baths}
+                  </span>
+                  <span className="text-[11px] text-gray-400">Baths</span>
+                </div>
+              )}
+              {listing.sqft > 0 && (
+                <div className="flex flex-1 flex-col items-center gap-0.5 px-1">
+                  <span className="flex items-center gap-1 text-sm font-semibold text-gray-900">
+                    <Square className="h-3.5 w-3.5 shrink-0 text-forest-600" />
+                    {listing.sqft.toLocaleString()}
+                  </span>
+                  <span className="text-[11px] text-gray-400">Sq. Ft.</span>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
