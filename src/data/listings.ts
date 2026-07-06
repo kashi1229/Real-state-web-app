@@ -59,7 +59,7 @@ export const mockListings: Listing[] = [
     type: 'house',
     status: 'for-sale',
     images: [
-      'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&h=600&fit=crop',
     ],
@@ -178,7 +178,7 @@ export const mockListings: Listing[] = [
     type: 'house',
     status: 'pending',
     images: [
-      'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=600&fit=crop',
@@ -239,7 +239,7 @@ export const mockListings: Listing[] = [
     status: 'for-sale',
     images: [
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop',
     ],
     featured: false,
@@ -328,7 +328,7 @@ export const mockListings: Listing[] = [
     images: [
       'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
     ],
     featured: false,
     tags: [],
