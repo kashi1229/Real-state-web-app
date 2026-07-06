@@ -45,15 +45,13 @@ export function MessagesProvider({ children }: { children: ReactNode }) {
     [setMessages],
   );
 
-  const unreadCount = useMemo(
-    () => messages.filter((m) => !m.read).length,
-    [messages],
-  );
+  const value = useMemo(() => {
+    const unreadCount = messages.filter((m) => !m.read).length;
+    return { messages, unreadCount, addMessage, toggleRead, deleteMessage };
+  }, [messages, addMessage, toggleRead, deleteMessage]);
 
   return (
-    <MessagesContext.Provider
-      value={{ messages, unreadCount, addMessage, toggleRead, deleteMessage }}
-    >
+    <MessagesContext.Provider value={value}>
       {children}
     </MessagesContext.Provider>
   );

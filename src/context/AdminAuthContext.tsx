@@ -1,4 +1,4 @@
-import { createContext, useContext, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useCallback, useMemo, type ReactNode } from 'react';
 import type { AdminUser } from '../types';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
@@ -35,15 +35,18 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     removeUser();
   }, [removeUser]);
 
+  const value = useMemo(
+    () => ({
+      user,
+      isAuthenticated: user !== null,
+      login,
+      logout,
+    }),
+    [user, login, logout],
+  );
+
   return (
-    <AdminAuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: user !== null,
-        login,
-        logout,
-      }}
-    >
+    <AdminAuthContext.Provider value={value}>
       {children}
     </AdminAuthContext.Provider>
   );

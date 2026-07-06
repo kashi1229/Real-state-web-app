@@ -1,4 +1,4 @@
-import { createContext, useContext, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useCallback, useMemo, type ReactNode } from 'react';
 import type { Listing } from '../types';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { mockListings } from '../data/listings';
@@ -55,10 +55,13 @@ export function ListingsProvider({ children }: { children: ReactNode }) {
     [setListings],
   );
 
+  const value = useMemo(
+    () => ({ listings, getListing, addListing, updateListing, deleteListing }),
+    [listings, getListing, addListing, updateListing, deleteListing],
+  );
+
   return (
-    <ListingsContext.Provider
-      value={{ listings, getListing, addListing, updateListing, deleteListing }}
-    >
+    <ListingsContext.Provider value={value}>
       {children}
     </ListingsContext.Provider>
   );
