@@ -15,10 +15,10 @@ export function PublicLayout() {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 0.8,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.08,
       smoothWheel: true,
       syncTouch: true,
+      touchMultiplier: 35,
     });
 
     lenisRef.current = lenis;
@@ -29,13 +29,57 @@ export function PublicLayout() {
       lenis.raf(time * 1000);
     });
 
+    function handleKeyDown(e: KeyboardEvent) {
+      const target = e.target as HTMLElement;
+      const isInput =
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable ||
+        target.tagName === 'SELECT';
+      if (isInput) return;
+
+      const step = (() => {
+        switch (e.key) {
+          case 'ArrowDown':
+            return window.innerHeight * 0.5;
+          case 'ArrowUp':
+            return -window.innerHeight * 0.5;
+          case 'PageDown':
+            return window.innerHeight * 0.8;
+          case 'PageUp':
+            return -window.innerHeight * 0.8;
+          case ' ':
+            return window.innerHeight * 0.8;
+          case 'Home':
+            return 'top' as const;
+          case 'End':
+            return 'bottom' as const;
+          default:
+            return null;
+        }
+      })();
+
+      if (step === null) return;
+      e.preventDefault();
+
+      if (step === 'top') {
+        lenis.scrollTo(0);
+      } else if (step === 'bottom') {
+        lenis.scrollTo('bottom');
+      } else {
+        lenis.scrollTo(lenis.scroll + step);
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       lenis.destroy();
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     lenisRef.current?.scrollTo(0, { immediate: true });
   }, [location.pathname]);
 
