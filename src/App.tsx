@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { AdminAuthProvider } from './context/AdminAuthContext';
 import { ListingsProvider } from './context/ListingsContext';
@@ -29,6 +29,18 @@ function PageLoader() {
   );
 }
 
+function SPAFallback() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const redirect = sessionStorage.getItem('redirect');
+    if (redirect) {
+      sessionStorage.removeItem('redirect');
+      navigate(redirect, { replace: true });
+    }
+  }, [navigate]);
+  return null;
+}
+
 export default function App() {
   return (
     <AdminAuthProvider>
@@ -45,6 +57,7 @@ export default function App() {
                 },
               }}
             />
+            <SPAFallback />
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 <Route element={<PublicLayout />}>
