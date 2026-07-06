@@ -14,11 +14,11 @@ export function PublicLayout() {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
     const lenis = new Lenis({
-      lerp: 0.08,
+      lerp: isMobile ? 0.15 : 0.08,
       smoothWheel: true,
-      syncTouch: true,
-      touchMultiplier: 35,
+      syncTouch: false,
     });
 
     lenisRef.current = lenis;
