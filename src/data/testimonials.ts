@@ -1,0 +1,58 @@
+import type { Testimonial } from '../types';
+
+export const testimonials: Testimonial[] = [
+  {
+    id: 'tm-001',
+    name: 'Eleanor Morrison',
+    location: 'Northwood, NY',
+    rating: 5,
+    text: 'Sarah helped us find our dream home in the most competitive market we\'ve ever experienced. Her negotiation skills are exceptional — she secured our offer under asking price by identifying a motivated seller when other agents missed the signs. We closed in under 30 days.',
+    role: 'Buyer',
+    date: '2026-05-15T10:00:00Z',
+  },
+  {
+    id: 'tm-002',
+    name: 'James & Karen Whitfield',
+    location: 'Westhaven, NY',
+    rating: 5,
+    text: 'When we decided to sell our family home of 22 years, we needed someone who understood both the emotional weight and the market strategy. Harper & Reed delivered on every front. Professional staging advice, stunning photography, and a multiple-offer situation that exceeded our expectations by 12%.',
+    role: 'Seller',
+    date: '2026-04-20T14:00:00Z',
+  },
+  {
+    id: 'tm-003',
+    name: 'David Okonkwo',
+    location: 'Oakridge, NY',
+    rating: 4,
+    text: 'As a first-time homebuyer, I had a million questions. Sarah was incredibly patient and thorough in explaining every step of the process. She connected me with a great lender and inspector, and made sure I understood exactly what I was signing. Found the perfect condo in my budget.',
+    role: 'Buyer',
+    date: '2026-03-10T09:00:00Z',
+  },
+  {
+    id: 'tm-004',
+    name: 'Patricia Lowell',
+    location: 'Easton, NY',
+    rating: 5,
+    text: 'Relocating from California, we knew nothing about the New York market. Sarah virtually toured 15 properties with us, provided detailed neighborhood comparisons, and even coordinated contractor quotes for homes needing renovation. We bought sight-unseen with total confidence. She turned a stressful cross-country move into an exciting adventure.',
+    role: 'Buyer',
+    date: '2026-06-01T11:00:00Z',
+  },
+  {
+    id: 'tm-005',
+    name: 'Robert Chen',
+    location: 'Southpointe, NY',
+    rating: 4,
+    text: 'I\'ve worked with Sarah on three transactions now — buying my first home, selling it, and buying my current house. She\'s earned my loyalty through consistent excellence, market insight, and genuine care. The Harper & Reed team handles every detail so I don\'t have to worry.',
+    role: 'Seller',
+    date: '2026-02-15T16:00:00Z',
+  },
+  {
+    id: 'tm-006',
+    name: 'Maria & Carlos Santos',
+    location: 'Northwood, NY',
+    rating: 5,
+    text: 'We were under contract with another buyer who fell through two weeks before closing. Sarah didn\'t miss a beat — she relisted, hosted three back-to-back open houses, and had us under contract again within 7 days for an even better price. Her composure under pressure is remarkable.',
+    role: 'Seller',
+    date: '2026-05-30T13:00:00Z',
+  },
+];
