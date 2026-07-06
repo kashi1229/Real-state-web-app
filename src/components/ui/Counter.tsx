@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { LucideIcon } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface CounterProps {
   end: number;
@@ -12,6 +8,10 @@ interface CounterProps {
   label: string;
   icon?: LucideIcon;
   duration?: number;
+}
+
+function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
 }
 
 export function Counter({ end, suffix = '', prefix = '', label, icon: Icon, duration = 2 }: CounterProps) {
@@ -23,29 +23,37 @@ export function Counter({ end, suffix = '', prefix = '', label, icon: Icon, dura
     const el = ref.current;
     if (!el) return;
 
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top 85%',
-        once: true,
-        onEnter: () => {
-          if (hasAnimated.current) return;
-          hasAnimated.current = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || hasAnimated.current) return;
+        hasAnimated.current = true;
+        observer.disconnect();
 
-          const obj = { value: 0 };
-          gsap.to(obj, {
-            value: end,
-            duration,
-            ease: 'power2.out',
-            onUpdate: () => {
-              setDisplay(Math.floor(obj.value).toLocaleString());
-            },
-          });
-        },
-      });
-    });
+        const startTime = performance.now();
+        let frameId: number;
 
-    return () => ctx.revert();
+        function animate(currentTime: number) {
+          const elapsed = (currentTime - startTime) / 1000;
+          const progress = Math.min(elapsed / duration, 1);
+          const easedProgress = easeOutCubic(progress);
+          const currentValue = Math.floor(easedProgress * end);
+
+          setDisplay(currentValue.toLocaleString());
+
+          if (progress < 1) {
+            frameId = requestAnimationFrame(animate);
+          }
+        }
+
+        frameId = requestAnimationFrame(animate);
+
+        return () => cancelAnimationFrame(frameId);
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [end, duration]);
 
   return (

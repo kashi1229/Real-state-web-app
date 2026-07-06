@@ -33,7 +33,7 @@ export function Navbar() {
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-40 transition-all duration-500',
-        isDark ? 'bg-forest-950/70 backdrop-blur-md' : 'bg-cream/95 shadow-sm backdrop-blur-md',
+        isDark ? 'bg-forest-950/70 sm:backdrop-blur-md' : 'bg-cream/95 shadow-sm sm:backdrop-blur-md',
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8">

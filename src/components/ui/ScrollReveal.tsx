@@ -1,8 +1,5 @@
-import { type ReactNode, useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { cn } from '../../lib/utils';
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -12,46 +9,55 @@ interface ScrollRevealProps {
   className?: string;
 }
 
-const directionMap = {
-  up: { y: 60, x: 0 },
-  down: { y: -60, x: 0 },
-  left: { x: 60, y: 0 },
-  right: { x: -60, y: 0 },
-};
+function getInitialTransform(direction: string, isVisible: boolean): string {
+  if (isVisible) return 'translate3d(0,0,0) scale3d(1,1,1)';
+  switch (direction) {
+    case 'up': return 'translate3d(0,40px,0)';
+    case 'down': return 'translate3d(0,-40px,0)';
+    case 'left': return 'translate3d(40px,0,0)';
+    case 'right': return 'translate3d(-40px,0,0)';
+    default: return 'translate3d(0,40px,0)';
+  }
+}
 
 export function ScrollReveal({
   children,
   direction = 'up',
   delay = 0,
-  duration = 0.8,
+  duration = 0.7,
   className,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const ctx = gsap.context(() => {
-      gsap.from(el, {
-        ...directionMap[direction],
-        opacity: 0,
-        duration,
-        delay,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' },
+    );
 
-    return () => ctx.revert();
-  }, [direction, delay, duration]);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div ref={ref} className={className}>
+    <div
+      ref={ref}
+      className={cn(className)}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: getInitialTransform(direction, isVisible),
+        transition: `opacity ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+      }}
+    >
       {children}
     </div>
   );
