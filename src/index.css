@@ -104,3 +104,8 @@
 @utility text-balance {
   text-wrap: balance;
 }
+
+html,
+body {
+  overflow-x: hidden;
+}
